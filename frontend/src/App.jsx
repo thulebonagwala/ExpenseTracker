@@ -8,6 +8,8 @@ import SignUpPage from './pages/SignUpPage';
 import DashboardPage from './pages/DashboardPage';
 import AuthLayout from './components/layouts/AuthLayout';
 import Test from './components/Test';
+import ExpensesPage from './pages/ExpensesPage';
+import IncomePage from './pages/incomePage';
 
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<SignUpPage/>} />
         <Route path="/dashboard" element={<DashboardPage/>} />
+        <Route path="/expenses" element={<ExpensesPage/>} />
+        <Route path="/income" element={<IncomePage/>} />
         <Route path="/test" element={<Test/>} />
       </Routes>
     </div>

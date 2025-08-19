@@ -1,184 +1,179 @@
+import React from 'react'
+import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
+import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import { ShoppingCart, Home, DollarSign, Lightbulb } from "lucide-react";
 
+const pieData = [
+  { name: "Groceries", value: 50 },
+  { name: "Rent", value: 600 },
+  { name: "Salary", value: 3400 },
+  { name: "Electricity", value: 100 },
+];
 
+const COLORS = ["#4f46e5", "#6366f1", "#818cf8", "#a5b4fc"];
 
-//Dashboard
+const Test = () => {
+    return (
+        <div className="min-h-screen bg-gray-50 flex flex-col mt-6">
+            {/* Navbar */}
+            <header className="flex justify-between items-center px-8 py-4 bg-white shadow">
+                <div className="flex items-center gap-2">
+                    <div className="bg-blue-600 text-white px-2 py-1 rounded-md font-bold">
+                        S
+                    </div>
+                    <h1 className="font-semibold text-lg">Spendly</h1>
+                </div>
+                <nav className="flex gap-6 text-gray-600">
+                    <a href="#" className="hover:text-black">Dashboard</a>
+                    <a href="#" className="hover:text-black">Expenses</a>
+                    <a href="#" className="hover:text-black">Income</a>
+                    <a href="#" className="hover:text-black">Reports</a>
+                </nav>
+                <img
+                    src="https://i.pravatar.cc/40"
+                    alt="Profile"
+                    className="rounded-full w-10 h-10"
+                />
+            </header>
 
-// import React from 'react'
-// import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
-// import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-// import { ShoppingCart, Home, DollarSign, Lightbulb } from "lucide-react";
+            {/* Main content */}
+            <main className="grid grid-cols-1 md:grid-cols-2 gap-6 p-8">
+                {/* Left side */}
+                <div className="flex flex-col gap-6">
+                    <h2 className="text-2xl font-bold">👋 Welcome back, Grace!</h2>
 
-// const pieData = [
-//   { name: "Groceries", value: 50 },
-//   { name: "Rent", value: 600 },
-//   { name: "Salary", value: 3400 },
-//   { name: "Electricity", value: 100 },
-// ];
+                    {/* Balance Cards */}
+                    <div className="grid grid-cols-2 gap-4">
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Total Balance</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-3xl font-bold text-gray-900">$5,750.00</p>
+                            </CardContent>
+                        </Card>
 
-// const COLORS = ["#4f46e5", "#6366f1", "#818cf8", "#a5b4fc"];
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>This Month’s Income</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-3xl font-bold text-gray-900">$3,400.00</p>
+                            </CardContent>
+                        </Card>
+                    </div>
 
-// const Test = () => {
-//     return (
-//         <div className="min-h-screen bg-gray-50 flex flex-col">
-//             {/* Navbar */}
-//             <header className="flex justify-between items-center px-8 py-4 bg-white shadow">
-//                 <div className="flex items-center gap-2">
-//                     <div className="bg-blue-600 text-white px-2 py-1 rounded-md font-bold">
-//                         S
-//                     </div>
-//                     <h1 className="font-semibold text-lg">Spendly</h1>
-//                 </div>
-//                 <nav className="flex gap-6 text-gray-600">
-//                     <a href="#" className="hover:text-black">Dashboard</a>
-//                     <a href="#" className="hover:text-black">Expenses</a>
-//                     <a href="#" className="hover:text-black">Income</a>
-//                     <a href="#" className="hover:text-black">Reports</a>
-//                 </nav>
-//                 <img
-//                     src="https://i.pravatar.cc/40"
-//                     alt="Profile"
-//                     className="rounded-full w-10 h-10"
-//                 />
-//             </header>
+                    {/* Recent Transactions */}
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Recent Transactions</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <ul className="space-y-3">
+                                <li className="flex justify-between items-center">
+                                    <div className="flex items-center gap-2">
+                                        <ShoppingCart className="w-5 h-5 text-gray-500" />
+                                        <span>Groceries</span>
+                                    </div>
+                                    <span>$50</span>
+                                </li>
+                                <li className="flex justify-between items-center">
+                                    <div className="flex items-center gap-2">
+                                        <Home className="w-5 h-5 text-gray-500" />
+                                        <span>Rent</span>
+                                    </div>
+                                    <span>$600</span>
+                                </li>
+                                <li className="flex justify-between items-center">
+                                    <div className="flex items-center gap-2">
+                                        <DollarSign className="w-5 h-5 text-gray-500" />
+                                        <span>Salary</span>
+                                    </div>
+                                    <span>$3,400</span>
+                                </li>
+                                <li className="flex justify-between items-center">
+                                    <div className="flex items-center gap-2">
+                                        <Lightbulb className="w-5 h-5 text-gray-500" />
+                                        <span>Electricity Bill</span>
+                                    </div>
+                                    <span>$100</span>
+                                </li>
+                            </ul>
+                        </CardContent>
+                    </Card>
+                </div>
 
-//             {/* Main content */}
-//             <main className="grid grid-cols-1 md:grid-cols-2 gap-6 p-8">
-//                 {/* Left side */}
-//                 <div className="flex flex-col gap-6">
-//                     <h2 className="text-2xl font-bold">👋 Welcome back, Grace!</h2>
+                {/* Right side */}
+                <div className="flex flex-col gap-6">
+                    {/* Pie Chart */}
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Expense vs Income</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <ResponsiveContainer width="100%" height={200}>
+                                <PieChart>
+                                    <Pie
+                                        data={pieData}
+                                        cx="50%"
+                                        cy="50%"
+                                        outerRadius={80}
+                                        dataKey="value"
+                                    >
+                                        {pieData.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                        ))}
+                                    </Pie>
+                                </PieChart>
+                            </ResponsiveContainer>
+                        </CardContent>
+                    </Card>
 
-//                     {/* Balance Cards */}
-//                     <div className="grid grid-cols-2 gap-4">
-//                         <Card>
-//                             <CardHeader>
-//                                 <CardTitle>Total Balance</CardTitle>
-//                             </CardHeader>
-//                             <CardContent>
-//                                 <p className="text-3xl font-bold text-gray-900">$5,750.00</p>
-//                             </CardContent>
-//                         </Card>
+                    {/* Transactions */}
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Recent Transactions</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <ul className="space-y-3">
+                                <li className="flex justify-between items-center">
+                                    <div className="flex items-center gap-2">
+                                        <ShoppingCart className="w-5 h-5 text-gray-500" />
+                                        <span>Groceries</span>
+                                    </div>
+                                    <span>$50 AM</span>
+                                </li>
+                                <li className="flex justify-between items-center">
+                                    <div className="flex items-center gap-2">
+                                        <Home className="w-5 h-5 text-gray-500" />
+                                        <span>Rent</span>
+                                    </div>
+                                    <span>$50 10</span>
+                                </li>
+                                <li className="flex justify-between items-center">
+                                    <div className="flex items-center gap-2">
+                                        <DollarSign className="w-5 h-5 text-gray-500" />
+                                        <span>Salary</span>
+                                    </div>
+                                    <span>Jul 28</span>
+                                </li>
+                            </ul>
+                        </CardContent>
+                    </Card>
+                </div>
+            </main>
 
-//                         <Card>
-//                             <CardHeader>
-//                                 <CardTitle>This Month’s Income</CardTitle>
-//                             </CardHeader>
-//                             <CardContent>
-//                                 <p className="text-3xl font-bold text-gray-900">$3,400.00</p>
-//                             </CardContent>
-//                         </Card>
-//                     </div>
+            {/* Footer */}
+            <footer className="flex justify-end gap-6 px-8 py-4 text-gray-500 text-sm">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms</a>
+                <a href="#">Contact</a>
+            </footer>
+        </div>
+    )
+}
 
-//                     {/* Recent Transactions */}
-//                     <Card>
-//                         <CardHeader>
-//                             <CardTitle>Recent Transactions</CardTitle>
-//                         </CardHeader>
-//                         <CardContent>
-//                             <ul className="space-y-3">
-//                                 <li className="flex justify-between items-center">
-//                                     <div className="flex items-center gap-2">
-//                                         <ShoppingCart className="w-5 h-5 text-gray-500" />
-//                                         <span>Groceries</span>
-//                                     </div>
-//                                     <span>$50</span>
-//                                 </li>
-//                                 <li className="flex justify-between items-center">
-//                                     <div className="flex items-center gap-2">
-//                                         <Home className="w-5 h-5 text-gray-500" />
-//                                         <span>Rent</span>
-//                                     </div>
-//                                     <span>$600</span>
-//                                 </li>
-//                                 <li className="flex justify-between items-center">
-//                                     <div className="flex items-center gap-2">
-//                                         <DollarSign className="w-5 h-5 text-gray-500" />
-//                                         <span>Salary</span>
-//                                     </div>
-//                                     <span>$3,400</span>
-//                                 </li>
-//                                 <li className="flex justify-between items-center">
-//                                     <div className="flex items-center gap-2">
-//                                         <Lightbulb className="w-5 h-5 text-gray-500" />
-//                                         <span>Electricity Bill</span>
-//                                     </div>
-//                                     <span>$100</span>
-//                                 </li>
-//                             </ul>
-//                         </CardContent>
-//                     </Card>
-//                 </div>
-
-//                 {/* Right side */}
-//                 <div className="flex flex-col gap-6">
-//                     {/* Pie Chart */}
-//                     <Card>
-//                         <CardHeader>
-//                             <CardTitle>Expense vs Income</CardTitle>
-//                         </CardHeader>
-//                         <CardContent>
-//                             <ResponsiveContainer width="100%" height={200}>
-//                                 <PieChart>
-//                                     <Pie
-//                                         data={pieData}
-//                                         cx="50%"
-//                                         cy="50%"
-//                                         outerRadius={80}
-//                                         dataKey="value"
-//                                     >
-//                                         {pieData.map((entry, index) => (
-//                                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-//                                         ))}
-//                                     </Pie>
-//                                 </PieChart>
-//                             </ResponsiveContainer>
-//                         </CardContent>
-//                     </Card>
-
-//                     {/* Transactions */}
-//                     <Card>
-//                         <CardHeader>
-//                             <CardTitle>Recent Transactions</CardTitle>
-//                         </CardHeader>
-//                         <CardContent>
-//                             <ul className="space-y-3">
-//                                 <li className="flex justify-between items-center">
-//                                     <div className="flex items-center gap-2">
-//                                         <ShoppingCart className="w-5 h-5 text-gray-500" />
-//                                         <span>Groceries</span>
-//                                     </div>
-//                                     <span>$50 AM</span>
-//                                 </li>
-//                                 <li className="flex justify-between items-center">
-//                                     <div className="flex items-center gap-2">
-//                                         <Home className="w-5 h-5 text-gray-500" />
-//                                         <span>Rent</span>
-//                                     </div>
-//                                     <span>$50 10</span>
-//                                 </li>
-//                                 <li className="flex justify-between items-center">
-//                                     <div className="flex items-center gap-2">
-//                                         <DollarSign className="w-5 h-5 text-gray-500" />
-//                                         <span>Salary</span>
-//                                     </div>
-//                                     <span>Jul 28</span>
-//                                 </li>
-//                             </ul>
-//                         </CardContent>
-//                     </Card>
-//                 </div>
-//             </main>
-
-//             {/* Footer */}
-//             <footer className="flex justify-end gap-6 px-8 py-4 text-gray-500 text-sm">
-//                 <a href="#">Privacy Policy</a>
-//                 <a href="#">Terms</a>
-//                 <a href="#">Contact</a>
-//             </footer>
-//         </div>
-//     )
-// }
-
-// export default Test
+export default Test
 
 
 
