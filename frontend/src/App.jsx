@@ -10,6 +10,7 @@ import AuthLayout from './components/layouts/AuthLayout';
 import Test from './components/Test';
 import ExpensesPage from './pages/ExpensesPage';
 import IncomePage from './pages/incomePage';
+import ReportsPage from './pages/ReportsPage';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/dashboard" element={<DashboardPage/>} />
         <Route path="/expenses" element={<ExpensesPage/>} />
         <Route path="/income" element={<IncomePage/>} />
+        <Route path="/reports" element={<ReportsPage/>} />
         <Route path="/test" element={<Test/>} />
       </Routes>
     </div>
