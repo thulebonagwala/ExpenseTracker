@@ -6,7 +6,7 @@ import ReportContent from '../components/reports/ReportContent';
 const ReportsPage = () => {
   return (
     <PageLayout>
-        {/* <ReportContent /> */}
+        <ReportContent />
     </PageLayout>
   )
 }
