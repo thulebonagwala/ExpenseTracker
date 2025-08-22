@@ -1,16 +1,17 @@
 import React from 'react'
 import InfoCard from "../dashboard/infoCard";
 import { useState } from "react";
+import CustomTable from '../Charts/CustomTable';
 
 const IncomeContent = () => {
 
-  const [expenses, setExpenses] = useState([
+  const [incomes, setIncomes] = useState([
     { date: "04/27/2024", category: "Rent", amount: 600, description: "April rent" },
     { date: "04/26/2024", category: "Salary", amount: 3400, description: "Salary for April" },
-    { date: "04/25/2024", category: "Electricity Bill", amount: 100, description: "Electricity bill" },
+    
   ]);
 
-  const [newExpense, setNewExpense] = useState({
+  const [newIncome, setNewIncome] = useState({
     date: "",
     category: "",
     amount: "",
@@ -19,20 +20,20 @@ const IncomeContent = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setNewExpense({ ...newExpense, [name]: value });
+    setNewIncome({ ...newIncome, [name]: value });
   };
 
-  const addExpense = () => {
-    if (newExpense.date && newExpense.category && newExpense.amount) {
-      setExpenses([newExpense, ...expenses]);
-      setNewExpense({ date: "", category: "", amount: "", description: "" });
+  const addIncome = () => {
+    if (newIncome.date && newIncome.category && newIncome.amount) {
+      setIncomes([newIncome, ...incomes]);
+      setNewIncome({ date: "", category: "", amount: "", description: "" });
     }
   };
 
   return (
     <main className="p-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Expenses</h1>
+        <h1 className="text-3xl font-bold">Incomes</h1>
       </div>
 
       {/* Input Form */}
@@ -41,7 +42,7 @@ const IncomeContent = () => {
           <input
             type="date"
             name="date"
-            value={newExpense.date}
+            value={newIncome.date}
             onChange={handleChange}
             className="border rounded-lg p-2"
           />
@@ -49,7 +50,7 @@ const IncomeContent = () => {
             type="text"
             name="category"
             placeholder="Category"
-            value={newExpense.category}
+            value={newIncome.category}
             onChange={handleChange}
             className="border rounded-lg p-2"
           />
@@ -57,7 +58,7 @@ const IncomeContent = () => {
             type="number"
             name="amount"
             placeholder="Amount"
-            value={newExpense.amount}
+            value={newIncome.amount}
             onChange={handleChange}
             className="border rounded-lg p-2"
           />
@@ -65,7 +66,7 @@ const IncomeContent = () => {
             type="text"
             name="description"
             placeholder="Description"
-            value={newExpense.description}
+            value={newIncome.description}
             onChange={handleChange}
             className="border rounded-lg p-2"
           />
@@ -73,33 +74,16 @@ const IncomeContent = () => {
       </InfoCard>
 
       <button
-        onClick={addExpense}
+        onClick={addIncome}
         className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
       >
-        Add Expense
+        Add Income
       </button>
 
       {/* Expenses Table */}
-      <table className="w-full mt-6 border-collapse">
-        <thead>
-          <tr className="text-left border-b">
-            <th className="p-2">Date</th>
-            <th className="p-2">Category</th>
-            <th className="p-2">Amount</th>
-            <th className="p-2">Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {expenses.map((exp, index) => (
-            <tr key={index} className="border-b hover:bg-yellow-100">
-              <td className="p-2">{exp.date}</td>
-              <td className="p-2">{exp.category}</td>
-              <td className="p-2">${exp.amount}</td>
-              <td className="p-2">{exp.description}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="max-h-50 overflow-y-auto">
+        <CustomTable transaction={incomes} />
+      </div>
     </main>
   )
 }

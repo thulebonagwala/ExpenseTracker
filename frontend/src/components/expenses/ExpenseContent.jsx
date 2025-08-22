@@ -1,12 +1,16 @@
 import React from 'react';
 import InfoCard from "../dashboard/infoCard";
 import { useState } from "react";
+import CustomTable from '../Charts/CustomTable';
 
 const ExpenseContent = () => {
 
     const [expenses, setExpenses] = useState([
         { date: "04/27/2024", category: "Rent", amount: 600, description: "April rent" },
         { date: "04/26/2024", category: "Salary", amount: 3400, description: "Salary for April" },
+        { date: "04/25/2024", category: "Electricity Bill", amount: 100, description: "Electricity bill" },
+        { date: "04/25/2024", category: "Electricity Bill", amount: 100, description: "Electricity bill" },
+        { date: "04/25/2024", category: "Electricity Bill", amount: 100, description: "Electricity bill" },
         { date: "04/25/2024", category: "Electricity Bill", amount: 100, description: "Electricity bill" },
     ]);
 
@@ -81,26 +85,10 @@ const ExpenseContent = () => {
             </button>
 
             {/* Expenses Table */}
-            <table className="w-full mt-6 border-collapse">
-                <thead>
-                    <tr className="text-left border-b">
-                        <th className="p-2">Date</th>
-                        <th className="p-2">Category</th>
-                        <th className="p-2">Amount</th>
-                        <th className="p-2">Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {expenses.map((exp, index) => (
-                        <tr key={index} className="border-b hover:bg-yellow-100">
-                            <td className="p-2">{exp.date}</td>
-                            <td className="p-2">{exp.category}</td>
-                            <td className="p-2">${exp.amount}</td>
-                            <td className="p-2">{exp.description}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <div className="max-h-50 overflow-y-auto">
+                <CustomTable transaction={expenses} />
+
+            </div>
         </main>
     )
 }
