@@ -3,7 +3,7 @@ import InfoCard from "../dashboard/infoCard";
 import { useState } from "react";
 import CustomTable from '../Charts/CustomTable';
 
-const ExpenseContent = () => {
+const ExpenseContent = ({forms, handleChange}) => {
 
     const [expenses, setExpenses] = useState([
         { date: "04/27/2024", category: "Rent", amount: 600, description: "April rent" },
@@ -14,24 +14,24 @@ const ExpenseContent = () => {
         { date: "04/25/2024", category: "Electricity Bill", amount: 100, description: "Electricity bill" },
     ]);
 
-    const [newExpense, setNewExpense] = useState({
-        date: "",
-        category: "",
-        amount: "",
-        description: "",
-    });
+    // const [newExpense, setNewExpense] = useState({
+    //     date: "",
+    //     category: "",
+    //     amount: "",
+    //     description: "",
+    // });
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setNewExpense({ ...newExpense, [name]: value });
-    };
+    // const handleChange = (e) => {
+    //     const { name, value } = e.target;
+    //     setNewExpense({ ...newExpense, [name]: value });
+    // };
 
-    const addExpense = () => {
-        if (newExpense.date && newExpense.category && newExpense.amount) {
-            setExpenses([newExpense, ...expenses]);
-            setNewExpense({ date: "", category: "", amount: "", description: "" });
-        }
-    };
+    // const addExpense = () => {
+    //     if (newExpense.date && newExpense.category && newExpense.amount) {
+    //         setExpenses([newExpense, ...expenses]);
+    //         setNewExpense({ date: "", category: "", amount: "", description: "" });
+    //     }
+    // };
 
 
     return (
@@ -46,39 +46,39 @@ const ExpenseContent = () => {
                     <input
                         type="date"
                         name="date"
-                        value={newExpense.date}
-                        onChange={handleChange}
+                        value={forms.expense.date}
+                        onChange={handleChange("expense")}
                         className="border rounded-lg p-2"
                     />
                     <input
                         type="text"
                         name="category"
                         placeholder="Category"
-                        value={newExpense.category}
-                        onChange={handleChange}
+                        value={forms.expense.category || ""}
+                        onChange={handleChange("expense")}
                         className="border rounded-lg p-2"
                     />
                     <input
                         type="number"
                         name="amount"
                         placeholder="Amount"
-                        value={newExpense.amount}
-                        onChange={handleChange}
+                        value={forms.expense.amount || ""}
+                        onChange={handleChange("expense")}
                         className="border rounded-lg p-2"
                     />
                     <input
                         type="text"
                         name="description"
                         placeholder="Description"
-                        value={newExpense.description}
-                        onChange={handleChange}
+                        value={forms.expense.description || ""}
+                        onChange={handleChange("expense")}
                         className="border rounded-lg p-2"
                     />
                 </div>
             </InfoCard>
 
             <button
-                onClick={addExpense}
+                // onClick={addExpense}
                 className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
             >
                 Add Expense

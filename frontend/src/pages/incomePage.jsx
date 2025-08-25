@@ -2,10 +2,10 @@ import React from 'react'
 import PageLayout from '../components/layouts/PageLayout';
 import IncomeContent from '../components/income/incomeContent';
 
-const IncomePage = () => {
+const IncomePage = ({forms, handleChange}) => {
   return (
     <PageLayout>
-      <IncomeContent/>
+      <IncomeContent forms={forms} handleChange={handleChange}/>
     </PageLayout>
   )
 }

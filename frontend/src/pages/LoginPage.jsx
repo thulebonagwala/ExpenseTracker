@@ -6,15 +6,15 @@ import { useNavigate } from 'react-router-dom';
 import AuthLayout from '../components/layouts/AuthLayout';
 
 
-const LoginPage = () => {
-    const [formData, setFormData] = useState({
-        email: "",
-        password: ""
-    });
+const LoginPage = ({forms,handleChange}) => {
+    // const [formData, setFormData] = useState({
+    //     email: "",
+    //     password: ""
+    // });
     const navigate = useNavigate();
-    const handleChange = (e) => {
-        setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    };
+    // const handleChange = (e) => {
+    //     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    // };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -24,7 +24,7 @@ const LoginPage = () => {
 
         //send to Backend
         try {
-            const res = await api.post(API_PATHS.AUTH.LOGIN, formData);
+            const res = await api.post(API_PATHS.AUTH.LOGIN, forms.login);
 
             //Save to localStorage
             localStorage.setItem("token", res.data.token);
@@ -47,8 +47,8 @@ const LoginPage = () => {
                             type="email"
                             name="email"
                             placeholder="Email"
-                            value={formData.email}
-                            onChange={handleChange}
+                            value={forms.login.email || ""}
+                            onChange={handleChange("login")}
                             required
                             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         />
@@ -57,8 +57,8 @@ const LoginPage = () => {
                             type="password"
                             name="password"
                             placeholder="Password"
-                            value={formData.password}
-                            onChange={handleChange}
+                            value={forms.login.password || ""}
+                            onChange={handleChange("login")}
                             required
                             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         />

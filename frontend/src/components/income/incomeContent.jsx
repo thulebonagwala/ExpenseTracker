@@ -3,32 +3,12 @@ import InfoCard from "../dashboard/infoCard";
 import { useState } from "react";
 import CustomTable from '../Charts/CustomTable';
 
-const IncomeContent = () => {
+const IncomeContent = ({ forms, handleChange }) => {
 
   const [incomes, setIncomes] = useState([
     { date: "04/27/2024", category: "Rent", amount: 600, description: "April rent" },
     { date: "04/26/2024", category: "Salary", amount: 3400, description: "Salary for April" },
-    
   ]);
-
-  const [newIncome, setNewIncome] = useState({
-    date: "",
-    category: "",
-    amount: "",
-    description: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNewIncome({ ...newIncome, [name]: value });
-  };
-
-  const addIncome = () => {
-    if (newIncome.date && newIncome.category && newIncome.amount) {
-      setIncomes([newIncome, ...incomes]);
-      setNewIncome({ date: "", category: "", amount: "", description: "" });
-    }
-  };
 
   return (
     <main className="p-8">
@@ -42,39 +22,39 @@ const IncomeContent = () => {
           <input
             type="date"
             name="date"
-            value={newIncome.date}
-            onChange={handleChange}
+            value={forms.income.date || ""}
+            onChange={handleChange("income")}
             className="border rounded-lg p-2"
           />
           <input
             type="text"
             name="category"
             placeholder="Category"
-            value={newIncome.category}
-            onChange={handleChange}
+            value={forms.income.category || ""}
+            onChange={handleChange("income")}
             className="border rounded-lg p-2"
           />
           <input
             type="number"
             name="amount"
             placeholder="Amount"
-            value={newIncome.amount}
-            onChange={handleChange}
+            value={forms.income.amount || ""}
+            onChange={handleChange("income")}
             className="border rounded-lg p-2"
           />
           <input
             type="text"
             name="description"
             placeholder="Description"
-            value={newIncome.description}
-            onChange={handleChange}
+            value={forms.income.description || ""}
+            onChange={handleChange("income")}
             className="border rounded-lg p-2"
           />
         </div>
       </InfoCard>
 
       <button
-        onClick={addIncome}
+        //onClick={addIncome}
         className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
       >
         Add Income

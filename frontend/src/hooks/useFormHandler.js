@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-const [forms, setForms] = useState({});
-
 // const handleChange = (e) => {
 
 //     const { name, value } = target.e
@@ -21,15 +19,15 @@ const [forms, setForms] = useState({});
 // const handleChange = (formName) => ({ target: { name, value } }) => 
 //     setForms({ ...forms, [formName]: { ...forms[formName], [name]: value } })
 
-const handleChange = (formName) => ({ target: { name, value } }) =>
-    setForms((prev) =>({
-        ...prev, 
-        [formName]: { ...prev[formName], [name]: value }
-    }))
+// const handleChange = (formName) => ({ target: { name, value } }) =>
+//     setForms((prev) =>({
+//         ...prev, 
+//         [formName]: { ...prev[formName], [name]: value }
+//     }))
 
 
 export function useFormHandler(initialForms){
-    const [forms, setForms] = useState({initialForms});
+    const [forms, setForms] = useState(initialForms);
 
     const handleChange = (formName) => ({ target: { name, value } }) =>
     setForms((prev) =>({
@@ -37,5 +35,5 @@ export function useFormHandler(initialForms){
         [formName]: { ...prev[formName], [name]: value }
     }));
 
-    return(forms,handleChange);
+    return{forms,handleChange};
 }

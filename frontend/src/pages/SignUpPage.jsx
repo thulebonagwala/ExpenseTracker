@@ -4,21 +4,21 @@ import api from '../utils/axiosInstance';
 import { API_PATHS } from '../utils/apiPaths';
 import AuthLayout from '../components/layouts/AuthLayout';
 
-const signUpPage = () => {
+const signUpPage = ({forms, handleChange}) => {
 
-  const [form, setForm] = useState({ fullName: "", email: "", password: "" });
+  // const [form, setForm] = useState({ fullName: "", email: "", password: "" });
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
+  // const handleChange = (e) => {
+  //   setForm({ ...form, [e.target.name]: e.target.value });
+  // }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     //call API
-    console.log(form);
+    console.log(forms.register);
     try {
-      const res = await api.post(API_PATHS.AUTH.REGISTER, form);
+      const res = await api.post(API_PATHS.AUTH.REGISTER, forms.register);
       console.log("Registration sucess:", res.data);
       navigate("/login");
     } catch (err) {
@@ -42,8 +42,8 @@ const signUpPage = () => {
               type="text"
               name="fullName"
               placeholder="Full Name"
-              value={form.fullName}
-              onChange={handleChange}
+              value={forms.register.fullName || ""}
+              onChange={handleChange("register")}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
               required
             />
@@ -51,8 +51,8 @@ const signUpPage = () => {
               type="email"
               name="email"
               placeholder="Email"
-              value={form.email}
-              onChange={handleChange}
+              value={forms.register.email || ""}
+              onChange={handleChange("register")}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
               required
             />
@@ -60,8 +60,8 @@ const signUpPage = () => {
               type="password"
               name="password"
               placeholder="Password"
-              value={form.password}
-              onChange={handleChange}
+              value={forms.register.password || ""}
+              onChange={handleChange("register")}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
               required
             />

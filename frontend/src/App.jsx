@@ -11,21 +11,28 @@ import Test from './components/Test';
 import ExpensesPage from './pages/ExpensesPage';
 import IncomePage from './pages/incomePage';
 import ReportsPage from './pages/ReportsPage';
+import { useFormHandler } from './hooks/useFormHandler';
 
 
 function App() {
+  const { forms, handleChange } = useFormHandler({
+    login: {},
+    register: {},
+    expense: {},
+    income: {},
+  });
 
   return (
     <div>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<SignUpPage/>} />
-        <Route path="/dashboard" element={<DashboardPage/>} />
-        <Route path="/expenses" element={<ExpensesPage/>} />
-        <Route path="/income" element={<IncomePage/>} />
-        <Route path="/reports" element={<ReportsPage/>} />
-        <Route path="/test" element={<Test/>} />
+        <Route path="/login" element={<LoginPage forms={forms} handleChange={handleChange} />} />
+        <Route path="/register" element={<SignUpPage forms={forms} handleChange={handleChange} />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/expenses" element={<ExpensesPage forms={forms} handleChange={handleChange}/>} />
+        <Route path="/income" element={<IncomePage forms={forms} handleChange={handleChange}/>} />
+        <Route path="/reports" element={<ReportsPage />} />
+        <Route path="/test" element={<Test />} />
       </Routes>
     </div>
   )
