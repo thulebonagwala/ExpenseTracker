@@ -33,7 +33,7 @@ const DashboardContent = () => {
             <div className="flex flex-col gap-6">
                 {/* Pie Chart */}
 
-                <InfoCard title="Expense vs Income">
+                <InfoCard title="Finance Overview">
                     <CustomPieCart />
                 </InfoCard>
                 {/* Transactions */}

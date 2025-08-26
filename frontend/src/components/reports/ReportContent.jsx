@@ -9,6 +9,8 @@ import {
     Legend,
     ResponsiveContainer,
 } from "recharts";
+import CustomBarChart from "../Charts/CustomBarChart";
+import ChartsCard from "./ChartsCard";
 
 
 const ReportContent = () => {
@@ -55,7 +57,7 @@ const ReportContent = () => {
     return (
         <main className="p-8">
             {/* Summary Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-1">
                 <div className="bg-blue-100 p-6 rounded-xl shadow text-center">
                     <h4 className="text-lg font-semibold text-blue-600">Total Income</h4>
                     <p className="text-2xl font-bold text-gray-800">
@@ -85,7 +87,7 @@ const ReportContent = () => {
             </div>
 
             {/* Year Selector + Button */}
-            <div className="flex items-center gap-4 mb-6">
+            <div className="flex items-center gap-4 mb-1">
                 <select
                     value={year}
                     onChange={(e) => setYear(e.target.value)}
@@ -101,20 +103,10 @@ const ReportContent = () => {
             </div>
 
             {/* Income vs Expenses Chart */}
-            <h3 className="text-xl font-semibold mb-4">Income vs Expenses</h3>
-            {/* <div className="w-full h-80">
-                <ResponsiveContainer>
-                    <BarChart data={incomeVsExpenses}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="month" />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <Bar dataKey="income" fill="#22c55e" radius={[6, 6, 0, 0]} />
-                        <Bar dataKey="expenses" fill="#ef4444" radius={[6, 6, 0, 0]} />
-                    </BarChart>
-                </ResponsiveContainer>
-            </div> */}
+            {/* <h3 className="text-xl font-semibold mb-4">Income vs Expenses</h3> */}
+            <ChartsCard title="Income vs Expenses">
+                <CustomBarChart />
+            </ChartsCard>
         </main>
     )
 }
