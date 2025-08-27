@@ -1,31 +1,39 @@
-import React, { useState } from "react";
-import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
+import React from "react";
+import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 
-const data = [
-  { month: "Jan", Income: 4000, Expense: 2400 },
-  { month: "Feb", Income: 3500, Expense: 2600 },
-  { month: "Mar", Income: 4200, Expense: 2900 },
-  { month: "Apr", Income: 4600, Expense: 3100 },
-  { month: "May", Income: 5000, Expense: 3400 },
-];
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
-const COLORS = ["#22c55e", "#ef4444", "#3b82f6"]; // Tailwind green, red, blue
+const Test = ({ data }) => {
+  const hasData = data && data.length > 0;
 
-const Test = () => {
+  if (!hasData) {
+    // Fallback placeholder UI
+    return (
+      <div className="flex flex-col items-center justify-center h-64 border rounded-lg bg-gray-50">
+        <p className="text-gray-500 text-lg">No data to display</p>
+        <p className="text-gray-400 text-sm">Add some records to see the chart</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex flex-col items-center bg-white p-6 rounded-2xl shadow-md w-full max-w-2xl">
-      <h2 className="text-xl font-semibold mb-4">Monthly Income vs Expense</h2>
-      <BarChart width={600} height={300} data={data}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="month" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="Income" fill="#22c55e" />
-        <Bar dataKey="Expense" fill="#ef4444" />
-      </BarChart>
-    </div>
+    <PieChart width={400} height={300}>
+      <Pie
+        data={data}
+        cx="50%"
+        cy="50%"
+        labelLine={false}
+        outerRadius={100}
+        fill="#8884d8"
+        dataKey="value"
+      >
+        {data.map((entry, index) => (
+          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+        ))}
+      </Pie>
+      <Tooltip />
+      <Legend />
+    </PieChart>
   );
 };
 

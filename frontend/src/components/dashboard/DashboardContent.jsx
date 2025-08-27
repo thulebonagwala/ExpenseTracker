@@ -5,6 +5,7 @@ import TransactionCard from './TransactionCard';
 import CustomPieCart from '../Charts/CustomPieCart';
 
 const DashboardContent = () => {
+    
     return (
         <main className="grid grid-cols-1 md:grid-cols-2 gap-6 p-8">
             <div className="flex flex-col gap-6">

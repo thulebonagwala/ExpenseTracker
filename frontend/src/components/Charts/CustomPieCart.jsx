@@ -10,7 +10,16 @@ const CustomPieCart = () => {
     ];
 
     const COLORS = ["#4040e7ff", "#ef4444", "#4B0082"];
-    // //const COLORS = ["#22c55e", "#ef4444", "#4B0082"]; // Tailwind green, red, blue
+    const hasData = data && data.length > 0;
+
+    if (!hasData) {
+        return (
+            <div className="flex flex-col items-center justify-center h-64  bg-gray-50">
+                <p className="text-gray-500 text-lg">No data to display</p>
+                <p className="text-gray-400 text-sm">Add some records to see the chart</p>
+            </div>
+        );
+    }
 
     return (
         <ResponsiveContainer width="100%" height={300}>
