@@ -25,7 +25,7 @@ const CustomBarChart = () => {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="Income" fill="#22c55e" />
+                <Bar dataKey="Income" fill="#4040e7ff" />
                 <Bar dataKey="Expense" fill="#ef4444" />
             </BarChart>
         </ResponsiveContainer>

@@ -9,7 +9,8 @@ const CustomPieCart = () => {
         { name: "Savings", value: 1500 },
     ];
 
-    const COLORS = ["#22c55e", "#ef4444", "#083783ff"]; // Tailwind green, red, blue
+    const COLORS = ["#4040e7ff", "#ef4444", "#4B0082"];
+    // //const COLORS = ["#22c55e", "#ef4444", "#4B0082"]; // Tailwind green, red, blue
 
     return (
         <ResponsiveContainer width="100%" height={300}>
@@ -18,8 +19,8 @@ const CustomPieCart = () => {
                     data={data}
                     cx="50%"
                     cy="50%"
-                    innerRadius={60}
-                    outerRadius={100}
+                    innerRadius="50%"
+                    outerRadius="80%"
                     dataKey="value"
                     label
                 >

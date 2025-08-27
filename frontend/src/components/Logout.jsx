@@ -4,7 +4,7 @@ import api from '../utils/axiosInstance';
 import { API_PATHS } from '../utils/apiPaths';
 
 
-const Logout = () => {
+const Logout = ({className}) => {
 
     const navigate = useNavigate();
     const handleLogout = async () => {
@@ -23,7 +23,7 @@ const Logout = () => {
     return (
         <button
             onClick={handleLogout}
-            className="bg-white-500  text-gray-600 px-4 py-2 rounded hover:text-black cursor-pointer"
+            className={`${className || ""}`}
         >
             Logout
         </button>

@@ -11,13 +11,13 @@ const DashboardContent = () => {
                 <h2 className="text-2xl font-bold">👋 Welcome back, Grace!</h2>
 
                 {/* Balance Cards */}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 gap-4">
                     <InfoCard title="Total Balance">
-                        <p className="text-3xl font-bold text-gray-900">R5,750.00</p>
+                        <p className="text-2xl font-bold text-gray-900">R5,750.00</p>
                     </InfoCard>
 
                     <InfoCard title="This Month’s Income">
-                        <p className="text-3xl font-bold text-gray-900">R3,400.00</p>
+                        <p className="text-2xl font-bold text-gray-900">R3,400.00</p>
                     </InfoCard>
                 </div>
 
