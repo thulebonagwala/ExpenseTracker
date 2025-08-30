@@ -1,6 +1,6 @@
-import expense from "../models/expense";
+const expense = require("../models/expense");
 
-export const addExpense = async (req, res) => {
+exports.addExpense = async (req, res) => {
     
     try {
         const { date, category, amount, description } = req.body;
@@ -9,8 +9,8 @@ export const addExpense = async (req, res) => {
             return res.status(400).json({message: "All fields are required"});
         }
 
-        const userId = req.user.Id; //since using JWT authentication
-
+        const userId = req.user._id; //since using JWT authentication
+        console.log(req.user._id);
         const Expense = await expense.create(
             { user: userId, date, category, amount, description }
         )
