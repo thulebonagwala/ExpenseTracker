@@ -1,38 +1,57 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import InfoCard from "../dashboard/infoCard";
 import { useState } from "react";
 import CustomTable from '../Charts/CustomTable';
+import { API_PATHS } from '../../utils/apiPaths';
+import api from '../../utils/axiosInstance';
 
-const ExpenseContent = ({forms, handleChange}) => {
+const ExpenseContent = ({ forms, handleChange, resetForms }) => {
+    const [expenses, setExpenses] = useState([]);
 
-    const [expenses, setExpenses] = useState([
-        { date: "04/27/2024", category: "Rent", amount: 600, description: "April rent" },
-        { date: "04/26/2024", category: "Salary", amount: 3400, description: "Salary for April" },
-        { date: "04/25/2024", category: "Electricity Bill", amount: 100, description: "Electricity bill" },
-        { date: "04/25/2024", category: "Electricity Bill", amount: 100, description: "Electricity bill" },
-        { date: "04/25/2024", category: "Electricity Bill", amount: 100, description: "Electricity bill" },
-        { date: "04/25/2024", category: "Electricity Bill", amount: 100, description: "Electricity bill" },
-    ]);
+    useEffect(() => {
+        fetchExpense();
+    }, []);
 
-    // const [newExpense, setNewExpense] = useState({
-    //     date: "",
-    //     category: "",
-    //     amount: "",
-    //     description: "",
-    // });
+    const fetchExpense = async () => {
+        try {
+            const res = await api.get(API_PATHS.EXPENSE.EXPENSES);
+            setExpenses(res.data);
+        } catch (error) {
+            console.log("error:", error.message);
+        }
+    }
 
-    // const handleChange = (e) => {
-    //     const { name, value } = e.target;
-    //     setNewExpense({ ...newExpense, [name]: value });
-    // };
+    const handleDelete = async (id) => {
+        try {
+            console.log("Path:", API_PATHS.EXPENSE.EXPENSES + id);
+            const deletedExpense = await api.delete(API_PATHS.EXPENSE.EXPENSES + id);
+            setExpenses(expenses.filter(exp => exp._id !== id));
+            console.log("Expense deleted successfully");
+        } catch (error) {
+            console.error("Error deleting expense", error);
+        }
+    }
 
-    // const addExpense = () => {
-    //     if (newExpense.date && newExpense.category && newExpense.amount) {
-    //         setExpenses([newExpense, ...expenses]);
-    //         setNewExpense({ date: "", category: "", amount: "", description: "" });
-    //     }
-    // };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
+        try {
+            const res = await api.post(API_PATHS.EXPENSE.ADD, forms.expense);
+
+            setExpenses(
+                (prev) => {
+                   const updated= [res.data, ...prev];
+                   return updated.sort((a,b) => new Date(b.date)- new Date(a.date));
+
+                })
+            resetForms();
+            console.log("income added successfully");
+        } catch (error) {
+            console.log("error:", error.message);
+        }
+
+
+    }
 
     return (
         <main className="p-8">
@@ -41,52 +60,56 @@ const ExpenseContent = ({forms, handleChange}) => {
             </div>
 
             {/* Input Form */}
-            <InfoCard title="">
-                <div className="grid grid-cols-4 gap-4 mb-6">
-                    <input
-                        type="date"
-                        name="date"
-                        value={forms.expense.date}
-                        onChange={handleChange("expense")}
-                        className="border rounded-lg p-2"
-                    />
-                    <input
-                        type="text"
-                        name="category"
-                        placeholder="Category"
-                        value={forms.expense.category || ""}
-                        onChange={handleChange("expense")}
-                        className="border rounded-lg p-2"
-                    />
-                    <input
-                        type="number"
-                        name="amount"
-                        placeholder="Amount"
-                        value={forms.expense.amount || ""}
-                        onChange={handleChange("expense")}
-                        className="border rounded-lg p-2"
-                    />
-                    <input
-                        type="text"
-                        name="description"
-                        placeholder="Description"
-                        value={forms.expense.description || ""}
-                        onChange={handleChange("expense")}
-                        className="border rounded-lg p-2"
-                    />
-                </div>
-            </InfoCard>
+            <form onSubmit={handleSubmit}>
+                <InfoCard title="">
+                    <div className="grid grid-cols-4 gap-4 mb-6">
+                        <input
+                            type="date"
+                            name="date"
+                            value={forms.expense.date || ""}
+                            onChange={handleChange("expense")}
+                            className="border rounded-lg p-2"
+                        />
+                        <input
+                            type="text"
+                            name="category"
+                            placeholder="Category"
+                            value={forms.expense.category || ""}
+                            onChange={handleChange("expense")}
+                            className="border rounded-lg p-2"
+                        />
+                        <input
+                            type="number"
+                            name="amount"
+                            placeholder="Amount"
+                            value={forms.expense.amount || ""}
+                            onChange={handleChange("expense")}
+                            className="border rounded-lg p-2"
+                        />
+                        <input
+                            type="text"
+                            name="description"
+                            placeholder="Description"
+                            value={forms.expense.description || ""}
+                            onChange={handleChange("expense")}
+                            className="border rounded-lg p-2"
+                        />
+                    </div>
+                </InfoCard>
 
-            <button
-                // onClick={addExpense}
-                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-            >
-                Add Expense
-            </button>
+                <button
+                    type="Submit"
+                    className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+                >
+                    Add Expense
+                </button>
+            </form>
+
 
             {/* Expenses Table */}
             <div className="max-h-50 overflow-y-auto">
-                <CustomTable transaction={expenses} />
+                <CustomTable transaction={expenses} handleDelete={handleDelete} />
+
 
             </div>
         </main>

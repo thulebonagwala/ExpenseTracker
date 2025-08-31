@@ -3,11 +3,11 @@ import { BASE_URL } from "./apiPaths";
 
 const api = axios.create({
     baseURL: BASE_URL,
-    //timeout: 10000,
+    timeout: 10000,
     //withCredentials: true,
 })
 
-//Request Interceptor - runs befor every request
+//Request Interceptor - runs before every request
 api.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem("token");

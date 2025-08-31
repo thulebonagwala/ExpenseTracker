@@ -15,7 +15,7 @@ import { useFormHandler } from './hooks/useFormHandler';
 
 
 function App() {
-  const { forms, handleChange } = useFormHandler({
+  const { forms, handleChange, resetForms } = useFormHandler({
     login: {},
     register: {},
     expense: {},
@@ -29,7 +29,7 @@ function App() {
         <Route path="/login" element={<LoginPage forms={forms} handleChange={handleChange} />} />
         <Route path="/register" element={<SignUpPage forms={forms} handleChange={handleChange} />} />
         <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/expenses" element={<ExpensesPage forms={forms} handleChange={handleChange}/>} />
+        <Route path="/expenses" element={<ExpensesPage forms={forms} handleChange={handleChange} resetForms={resetForms}/>} />
         <Route path="/income" element={<IncomePage forms={forms} handleChange={handleChange}/>} />
         <Route path="/reports" element={<ReportsPage />} />
         <Route path="/test" element={<Test />} />

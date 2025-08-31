@@ -35,5 +35,7 @@ export function useFormHandler(initialForms){
         [formName]: { ...prev[formName], [name]: value }
     }));
 
-    return{forms,handleChange};
+    const resetForms = () => setForms(initialForms);
+
+    return{forms,handleChange, resetForms};
 }

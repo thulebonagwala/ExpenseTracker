@@ -5,10 +5,12 @@ import CustomTable from '../Charts/CustomTable';
 
 const IncomeContent = ({ forms, handleChange }) => {
 
-  const [incomes, setIncomes] = useState([
-    { date: "04/27/2024", category: "Rent", amount: 600, description: "April rent" },
-    { date: "04/26/2024", category: "Salary", amount: 3400, description: "Salary for April" },
-  ]);
+  const [incomes, setIncomes] = useState([]);
+  //   { date: "04/27/2024", category: "Rent", amount: 600, description: "April rent" },
+  //   { date: "04/26/2024", category: "Salary", amount: 3400, description: "Salary for April" },
+  // ]);
+ 
+  
 
   return (
     <main className="p-8">

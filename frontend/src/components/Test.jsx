@@ -1,40 +1,44 @@
-import React from "react";
-import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+function Expenses() {
+  const [expenses, setExpenses] = useState([]);
 
-const Test = ({ data }) => {
-  const hasData = data && data.length > 0;
+  // Fetch expenses
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/expenses")
+      .then(res => setExpenses(res.data))
+      .catch(err => console.error(err));
+  }, []);
 
-  if (!hasData) {
-    // Fallback placeholder UI
-    return (
-      <div className="flex flex-col items-center justify-center h-64 border rounded-lg bg-gray-50">
-        <p className="text-gray-500 text-lg">No data to display</p>
-        <p className="text-gray-400 text-sm">Add some records to see the chart</p>
-      </div>
-    );
-  }
+  // Delete expense
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/expenses/${id}`);
+      setExpenses(expenses.filter(exp => exp._id !== id)); // update UI
+    } catch (err) {
+      console.error("Error deleting expense:", err);
+    }
+  };
 
   return (
-    <PieChart width={400} height={300}>
-      <Pie
-        data={data}
-        cx="50%"
-        cy="50%"
-        labelLine={false}
-        outerRadius={100}
-        fill="#8884d8"
-        dataKey="value"
-      >
-        {data.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+    <div className="p-4">
+      <h2 className="text-xl font-bold mb-4">Expenses</h2>
+      <ul>
+        {expenses.map(exp => (
+          <li key={exp._id} className="flex justify-between items-center border-b py-2">
+            <span>{exp.description} - ${exp.amount}</span>
+            <button 
+              onClick={() => handleDelete(exp._id)} 
+              className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+            >
+              Delete
+            </button>
+          </li>
         ))}
-      </Pie>
-      <Tooltip />
-      <Legend />
-    </PieChart>
+      </ul>
+    </div>
   );
-};
+}
 
-export default Test;
+export default Expenses;
