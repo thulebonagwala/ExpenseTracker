@@ -30,7 +30,7 @@ function App() {
         <Route path="/register" element={<SignUpPage forms={forms} handleChange={handleChange} />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/expenses" element={<ExpensesPage forms={forms} handleChange={handleChange} resetForms={resetForms}/>} />
-        <Route path="/income" element={<IncomePage forms={forms} handleChange={handleChange}/>} />
+        <Route path="/income" element={<IncomePage forms={forms} handleChange={handleChange} resetForms={resetForms}/>} />
         <Route path="/reports" element={<ReportsPage />} />
         <Route path="/test" element={<Test />} />
       </Routes>

@@ -30,7 +30,7 @@ const CustomTable = ({ transaction, handleDelete }) => {
                     <tr key={index} className="group border-b hover:bg-yellow-100">
                         <td className="p-2">{formatDate(trans.date)}</td>
                         <td className="p-2">{trans.category}</td>
-                        <td className="p-2">${trans.amount}</td>
+                        <td className="p-2">R{trans.amount}</td>
                         <td className="p-2">{trans.description}</td>
                         <td
                             onClick={() => handleDelete(trans._id)}
