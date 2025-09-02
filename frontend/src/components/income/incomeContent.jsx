@@ -24,9 +24,9 @@ const IncomeContent = ({ forms, handleChange, resetForms }) => {
 
   const handleDelete = async (id) => {
     try {
-      
+
       const deletedIncome = await api.delete(API_PATHS.INCOME.INCOMES + id);
-      setIncomes(incomes.filter(inc => inc._id !== id));
+      setIncomes(incomes.fsilter(inc => inc._id !== id));
       console.log("Expense deleted successfully");
     } catch (error) {
       console.error("Error deleting expense", error);
