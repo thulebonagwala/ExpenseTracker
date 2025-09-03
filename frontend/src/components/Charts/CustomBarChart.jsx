@@ -1,25 +1,33 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
-const data = [
-    { month: "Jan", Income: 4000, Expense: 2400 },
-    { month: "Feb", Income: 3500, Expense: 2600 },
-    { month: "Mar", Income: 4200, Expense: 2900 },
-    { month: "Apr", Income: 4600, Expense: 3100 },
-    { month: "May", Income: 5000, Expense: 3400 },
-    { month: "Jun", Income: 2400, Expense: 17000 },
-    { month: "Jul", Income: 12000, Expense: 8000 },
-    { month: "Aug", Income: 12500, Expense: 8500 },
-    { month: "Sep", Income: 13000, Expense: 9000 },
-    { month: "Oct", Income: 12500, Expense: 8800 },
-    { month: "Nov", Income: 13500, Expense: 9500 },
-    { month: "Dec", Income: 12800, Expense: 8700 },
-];
 
-const CustomBarChart = () => {
+
+const CustomBarChart = ({data}) => {
+
+    if(!data){
+        return(
+            <p>No data to display</p>
+        )
+    }
+    
+    const incomeVsExpenses = [
+    { month: "Jan", Income: data.find(m => m.month === 1).income, Expense: data.find(m => m.month === 1).expense },
+    { month: "Feb", Income: data.find(m => m.month === 2).income , Expense: data.find(m => m.month === 2).expense },
+    { month: "Mar", Income: data.find(m => m.month === 3).income, Expense: data.find(m => m.month === 3).expense },
+    { month: "Apr", Income: data.find(m => m.month === 4).income, Expense: data.find(m => m.month === 4).expense },
+    { month: "May", Income: data.find(m => m.month === 5).income, Expense: data.find(m => m.month === 5).expense },
+    { month: "Jun", Income: data.find(m => m.month === 6).income, Expense: data.find(m => m.month === 6).expense },
+    { month: "Jul", Income: data.find(m => m.month === 7).income, Expense: data.find(m => m.month === 7).expense },
+    { month: "Aug", Income: data.find(m => m.month === 8).income, Expense: data.find(m => m.month === 8).expense },
+    { month: "Sep", Income: data.find(m => m.month === 9).income, Expense: data.find(m => m.month === 9).expense },
+    { month: "Oct", Income: data.find(m => m.month === 10).income, Expense: data.find(m => m.month === 10).expense },
+    { month: "Nov", Income: data.find(m => m.month === 11).income, Expense: data.find(m => m.month === 11).expense },
+    { month: "Dec", Income: data.find(m => m.month === 12).income, Expense: data.find(m => m.month === 12).expense },
+];
     return (
         <ResponsiveContainer width="100%" height={180}>
-            <BarChart width={600} height={300} data={data}>
+            <BarChart width={600} height={300} data={incomeVsExpenses}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="month" />
                 <YAxis />

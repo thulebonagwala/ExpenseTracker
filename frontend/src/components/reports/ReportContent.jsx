@@ -11,28 +11,17 @@ import {
 } from "recharts";
 import CustomBarChart from "../Charts/CustomBarChart";
 import ChartsCard from "./ChartsCard";
+import { useReportDataHandler } from "../../hooks/useReportDataHandler";
 
 
 const ReportContent = () => {
+
+    const { data, error, fetchYearlyReport } = useReportDataHandler();
+
     const [year, setYear] = useState("2024");
-    // Sample data
-    const expensesData = [
-        { month: "Jan", expenses: 10500 },
-        { month: "Feb", expenses: 10000 },
-        { month: "Mar", expenses: 9800 },
-        { month: "Apr", expenses: 11500 },
-        { month: "May", expenses: 13000 },
-        { month: "Jun", expenses: 17000 },
-        { month: "Jul", expenses: 8000 },
-        { month: "Aug", expenses: 8500 },
-        { month: "Sep", expenses: 9000 },
-        { month: "Oct", expenses: 8800 },
-        { month: "Nov", expenses: 9500 },
-        { month: "Dec", expenses: 8700 },
-    ];
 
     const incomeVsExpenses = [
-        { month: "Jan", income: 14000, expenses: 10500 },
+        { month: "Jan", income: 0 , expenses: 10500 },
         { month: "Feb", income: 13500, expenses: 10000 },
         { month: "Mar", income: 12000, expenses: 9800 },
         { month: "Apr", income: 15000, expenses: 11500 },
@@ -46,14 +35,6 @@ const ReportContent = () => {
         { month: "Dec", income: 12800, expenses: 8700 },
     ];
 
-    // Totals
-    const totalIncome = incomeVsExpenses.reduce((sum, d) => sum + d.income, 0);
-    const totalExpenses = incomeVsExpenses.reduce(
-        (sum, d) => sum + d.expenses,
-        0
-    );
-    const netSavings = totalIncome - totalExpenses;
-
     return (
         <main className="p-8">
             {/* Summary Cards */}
@@ -61,27 +42,27 @@ const ReportContent = () => {
                 <div className="bg-blue-100 p-6 rounded-xl shadow text-center">
                     <h4 className="text-lg font-semibold text-blue-600">Total Income</h4>
                     <p className="text-2xl font-bold text-gray-800">
-                        R{totalIncome.toLocaleString()}
+                        R{(data.totalIncome || 0).toLocaleString()}
                     </p>
                 </div>
                 <div className="bg-red-100 p-6 rounded-xl shadow text-center">
                     <h4 className="text-lg font-semibold text-red-600">Total Expenses</h4>
                     <p className="text-2xl font-bold text-gray-800">
-                        R{totalExpenses.toLocaleString()}
+                        R{(data.totalExpense || 0).toLocaleString()}
                     </p>
                 </div>
                 <div
-                    className={`p-6 rounded-xl shadow text-center ${netSavings >= 0 ? "bg-green-100" : "bg-yellow-100"
+                    className={`p-6 rounded-xl shadow text-center ${data.netSavings >= 0 ? "bg-green-100" : "bg-yellow-100"
                         }`}
                 >
                     <h4
-                        className={`text-lg font-semibold ${netSavings >= 0 ? "text-green-600" : "text-yellow-600"
+                        className={`text-lg font-semibold ${data.netSavings >= 0 ? "text-green-600" : "text-yellow-600"
                             }`}
                     >
                         Net Savings
                     </h4>
                     <p className="text-2xl font-bold text-gray-800">
-                        R{netSavings.toLocaleString()}
+                        R{(data.netSavings || 0).toLocaleString()}
                     </p>
                 </div>
             </div>
@@ -89,13 +70,18 @@ const ReportContent = () => {
             {/* Year Selector + Button */}
             <div className="flex items-center gap-4 mb-1">
                 <select
-                    value={year}
-                    onChange={(e) => setYear(e.target.value)}
+                    //value={year}
+                    onChange={(e) => {
+                        const selectedYear = e.target.value;
+                        setYear(selectedYear);
+                        fetchYearlyReport(selectedYear);
+                    }}
+
                     className="border rounded-lg p-2"
                 >
+                    <option value="2025">2025</option>
                     <option value="2024">2024</option>
                     <option value="2023">2023</option>
-                    <option value="2022">2022</option>
                 </select>
                 <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
                     Generate Report
@@ -105,9 +91,9 @@ const ReportContent = () => {
             {/* Income vs Expenses Chart */}
             {/* <h3 className="text-xl font-semibold mb-4">Income vs Expenses</h3> */}
             <ChartsCard title="Income vs Expenses">
-                <CustomBarChart />
+                <CustomBarChart data={data.monthlyData}/>
             </ChartsCard>
-        </main>
+        </main >
     )
 }
 
