@@ -21,3 +21,50 @@ exports.recentTransactions = async (req, res) => {
         res.status(500).json({ message: "Server error", error: err.message });
     }
 }
+
+exports.getBalance = async (req, res) => {
+
+    try {
+        const userId = req.user._id;
+
+        const now = new Date();
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+
+        const incomeMonth = await income.aggregate([
+            {
+                $match: {
+                    user: userId,
+                    date: { $gte: startOfMonth, $lte: endOfMonth },
+                },
+            },
+            {
+                $group: {
+                    _id: null,
+                    totalIncome: { $sum: "$amount" },
+                },
+            },
+        ]);
+
+        const incomes = await income.aggregate([
+            { $match: { user: userId } },
+            { $group: { _id: null, total: { $sum: "$amount" } } }
+        ]);
+
+        const expenses = await expense.aggregate([
+            { $match: { user: userId } },
+            { $group: { _id: null, total: { $sum: "$amount" } } }
+        ]);
+
+        const totalIncome = incomes[0]?.total || 0;
+        const totalExpense = expenses[0]?.total || 0;
+        const balance = totalIncome - totalExpense;
+        const totalIncomeMonthly = incomeMonth.length > 0 ? incomeMonth[0].totalIncome : 0;
+
+        res.json({ totalIncome, totalExpense, balance, totalIncomeMonthly });
+    } catch (err) {
+        res.status(500).json({ message: "Server error", error: err.message });
+    }
+
+
+}

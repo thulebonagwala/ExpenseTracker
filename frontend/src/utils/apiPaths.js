@@ -18,6 +18,7 @@ export const API_PATHS = {
     },
 
     TRANSACTIONS: {
-        RECENT: "/api/v1/transactions/recent"
+        RECENT: "/api/v1/transactions/recent",
+        BALANCE: "/api/v1/transactions/balance"
     }
 }

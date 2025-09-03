@@ -1,12 +1,12 @@
 import React from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
-const CustomPieCart = () => {
+const CustomPieCart = ({balance}) => {
 
     const data = [
-        { name: "Income", value: 4000 },
-        { name: "Expense", value: 2500 },
-        { name: "Savings", value: 1500 },
+        { name: "Income", value: balance.totalIncome },
+        { name: "Expense", value: balance.totalExpense },
+        { name: "Savings", value: balance.balance },
     ];
 
     const COLORS = ["#4040e7ff", "#ef4444", "#4B0082"];

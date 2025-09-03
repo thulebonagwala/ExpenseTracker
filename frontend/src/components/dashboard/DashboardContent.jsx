@@ -5,24 +5,15 @@ import TransactionCard from './TransactionCard';
 import CustomPieCart from '../Charts/CustomPieCart';
 import api from '../../utils/axiosInstance';
 import { API_PATHS } from '../../utils/apiPaths';
+import { useRecentTransactions } from '../../hooks/useRecentTransactions';
+import { useGetBalance } from '../../hooks/useGetbalance';
+
 
 const DashboardContent = () => {
-    const [recentTransactions, setRecentTransactions] = useState([]);
+    const { recentTransactions, loading, error } = useRecentTransactions();
 
-    useEffect(() => {
-        fetchRecentTrasactions();
-    }, []);
-
-    const fetchRecentTrasactions = async () => {
-        try {
-            const res = await api.get(API_PATHS.TRANSACTIONS.RECENT);
-            setRecentTransactions(Array.isArray(res.data) ? res.data : []);
-        } catch (error) {
-            console.log("error:", error.message);
-            setRecentTransactions([]);
-        }
-    }
-    
+    const { balance, err } = useGetBalance();
+    //console.log( err);
     return (
         <main className="grid grid-cols-1 md:grid-cols-2 gap-6 p-8">
             <div className="flex flex-col gap-6">
@@ -31,18 +22,22 @@ const DashboardContent = () => {
                 {/* Balance Cards */}
                 <div className="grid md:grid-cols-2 gap-4">
                     <InfoCard title="Total Balance">
-                        <p className="text-2xl font-bold text-gray-900">R5,750.00</p>
+                        <p className="text-2xl font-bold text-gray-900">R{balance.balance}</p>
                     </InfoCard>
 
                     <InfoCard title="This Month’s Income">
-                        <p className="text-2xl font-bold text-gray-900">R3,400.00</p>
+                        <p className="text-2xl font-bold text-gray-900">R{balance.totalIncomeMonthly}</p>
                     </InfoCard>
                 </div>
 
                 {/* Recent Transactions */}
 
                 <InfoCard title="Recent Transactions">
-                    <TransactionCard recentTransactions={recentTransactions}/>
+                    {loading && <p>Loading...</p>}
+                    {error && <p className="text-red-500">{error}</p>}
+                    {!loading && <TransactionCard recentTransactions={recentTransactions} />}
+
+                    {/* <TransactionCard recentTransactions={recentTransactions} /> */}
                 </InfoCard>
 
             </div>
@@ -52,7 +47,7 @@ const DashboardContent = () => {
                 {/* Pie Chart */}
 
                 <InfoCard title="Finance Overview">
-                    <CustomPieCart />
+                    <CustomPieCart balance={balance} />
                 </InfoCard>
                 {/* Transactions */}
             </div>
