@@ -15,5 +15,9 @@ export const API_PATHS = {
     INCOME: {
         ADD: "/api/v1/income/add",
         INCOMES: "/api/v1/income/"
+    },
+
+    TRANSACTIONS: {
+        RECENT: "/api/v1/transactions/recent"
     }
 }

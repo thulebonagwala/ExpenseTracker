@@ -1,10 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 import InfoCard from './infoCard';
 import TransactionCard from './TransactionCard';
 import CustomPieCart from '../Charts/CustomPieCart';
+import api from '../../utils/axiosInstance';
+import { API_PATHS } from '../../utils/apiPaths';
 
 const DashboardContent = () => {
+    const [recentTransactions, setRecentTransactions] = useState([]);
+
+    useEffect(() => {
+        fetchRecentTrasactions();
+    }, []);
+
+    const fetchRecentTrasactions = async () => {
+        try {
+            const res = await api.get(API_PATHS.TRANSACTIONS.RECENT);
+            setRecentTransactions(Array.isArray(res.data) ? res.data : []);
+        } catch (error) {
+            console.log("error:", error.message);
+            setRecentTransactions([]);
+        }
+    }
     
     return (
         <main className="grid grid-cols-1 md:grid-cols-2 gap-6 p-8">
@@ -25,7 +42,7 @@ const DashboardContent = () => {
                 {/* Recent Transactions */}
 
                 <InfoCard title="Recent Transactions">
-                    <TransactionCard />
+                    <TransactionCard recentTransactions={recentTransactions}/>
                 </InfoCard>
 
             </div>
