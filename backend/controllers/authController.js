@@ -62,9 +62,19 @@ exports.login = async (req, res) => {
         }
 
         res.json({ token: tokenGenerate(user._id) });
-    }catch(err){
+    } catch (err) {
         console.error(err);
-        res.status(500).json({message:"Server error"});
+        res.status(500).json({ message: "Server error" });
     }
 
+};
+
+exports.getMe = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id).select("-password");
+        // don't send password
+        res.json(user);
+    } catch (err) {
+        res.status(500).json({ message: "Server error", error: err.message });
+    }
 };

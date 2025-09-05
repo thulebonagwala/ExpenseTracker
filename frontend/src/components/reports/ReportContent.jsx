@@ -12,28 +12,15 @@ import {
 import CustomBarChart from "../Charts/CustomBarChart";
 import ChartsCard from "./ChartsCard";
 import { useReportDataHandler } from "../../hooks/useReportDataHandler";
+import { BASE_URL } from "../../utils/apiPaths";
+import handleDownload from "../../utils/downloadSaveFile";
 
 
 const ReportContent = () => {
 
     const { data, error, fetchYearlyReport } = useReportDataHandler();
 
-    const [year, setYear] = useState("2024");
-
-    const incomeVsExpenses = [
-        { month: "Jan", income: 0 , expenses: 10500 },
-        { month: "Feb", income: 13500, expenses: 10000 },
-        { month: "Mar", income: 12000, expenses: 9800 },
-        { month: "Apr", income: 15000, expenses: 11500 },
-        { month: "May", income: 16000, expenses: 13000 },
-        { month: "Jun", income: 20000, expenses: 17000 },
-        { month: "Jul", income: 12000, expenses: 8000 },
-        { month: "Aug", income: 12500, expenses: 8500 },
-        { month: "Sep", income: 13000, expenses: 9000 },
-        { month: "Oct", income: 12500, expenses: 8800 },
-        { month: "Nov", income: 13500, expenses: 9500 },
-        { month: "Dec", income: 12800, expenses: 8700 },
-    ];
+    const [year, setYear] = useState(new Date().getFullYear());
 
     return (
         <main className="p-8">
@@ -83,7 +70,11 @@ const ReportContent = () => {
                     <option value="2024">2024</option>
                     <option value="2023">2023</option>
                 </select>
-                <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                <button
+                    onClick={() =>
+                        handleDownload(year)
+                    }
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
                     Generate Report
                 </button>
             </div>
@@ -91,7 +82,7 @@ const ReportContent = () => {
             {/* Income vs Expenses Chart */}
             {/* <h3 className="text-xl font-semibold mb-4">Income vs Expenses</h3> */}
             <ChartsCard title="Income vs Expenses">
-                <CustomBarChart data={data.monthlyData}/>
+                <CustomBarChart data={data.monthlyData} />
             </ChartsCard>
         </main >
     )
