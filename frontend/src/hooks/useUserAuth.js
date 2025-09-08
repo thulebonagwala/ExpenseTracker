@@ -20,5 +20,5 @@ export function useUserAuth() {
 
     if (!user) return ("");
 
-    return(user.fullName);
+    return(user);
 }

@@ -31,6 +31,7 @@ app.use("/api/v1/expense",expenseRoutes);
 app.use("/api/v1/income",incomeRoutes);
 app.use("/api/v1/transactions",transationsRoutes);
 app.use("/api/v1/report", reportRoutes);
+app.use("/uploads", express.static("uploads"));
 
 
 const PORT = process.env.PORT || 5000;

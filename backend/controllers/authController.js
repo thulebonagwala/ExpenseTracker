@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const multer = require("multer");
 
 
 //generate Jwt toket
@@ -13,12 +14,17 @@ exports.registerUser = async (req, res) => {
 
     if (!fullName || !email || !password) {
         return res.status(400).json({ Message: "All fields are required." });
+        
     }
-
+    
     try {
+        
         const userExist = await User.findOne({ email });
+        
         if (userExist) {
-            return res.status(400).json({ message: "Email already exist" })
+            
+            return res.status(400).json({ message: "Email already exist" });
+            
         }
         const user = await User.create(
             {
@@ -27,7 +33,7 @@ exports.registerUser = async (req, res) => {
                 password,
             }
         )
-
+        console.log("enters2");
         // const payload = {id: user._id};
         // const token = jwt.sign(payload,process.env.JWT_SECRET, {expiresIn: "1h"})
 
@@ -78,3 +84,23 @@ exports.getMe = async (req, res) => {
         res.status(500).json({ message: "Server error", error: err.message });
     }
 };
+
+// Upload profile picture
+exports.uploadProfilePic = async (req, res) => {
+    try {
+        const userId = req.user._id; // from auth middleware
+        const filePath = `/uploads/${req.file.filename}`; // static path
+
+        const user = await User.findByIdAndUpdate(
+            userId,
+            { profileImageUrl: filePath },
+            { new: true }
+        ).select("-password");
+
+        res.json(user);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+};
+

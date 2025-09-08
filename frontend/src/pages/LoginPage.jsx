@@ -6,11 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import AuthLayout from '../components/layouts/AuthLayout';
 
 
-const LoginPage = ({forms,handleChange}) => {
+const LoginPage = ({ forms, handleChange }) => {
     // const [formData, setFormData] = useState({
     //     email: "",
     //     password: ""
     // });
+    const [error, setError] = useState("");
     const navigate = useNavigate();
     // const handleChange = (e) => {
     //     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -18,6 +19,7 @@ const LoginPage = ({forms,handleChange}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError(""); // clear old errors
         //console.log("Email:", formData.email);
         // console.log("Password:, formData.password");
         // alert(`Login attempt with email: ${formData.email}`);
@@ -31,7 +33,11 @@ const LoginPage = ({forms,handleChange}) => {
             navigate("/dashboard");
 
         } catch (err) {
-            console.error("Login failed:", err.response?.data || err.message);
+            if (err.response && err.response.status === 400) {
+                setError("Invalid credentials. Please try again.");
+            } else {
+                setError("Something went wrong. Please try again later.");
+            }
         }
 
     }
@@ -69,6 +75,7 @@ const LoginPage = ({forms,handleChange}) => {
                         >
                             Login
                         </button>
+                        {error && <p className="text-sm text-red-600">{error}</p>}
                     </form>
 
                     <p className="text-center text-sm text-gray-600 mt-6">

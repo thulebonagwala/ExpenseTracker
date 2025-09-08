@@ -18,6 +18,7 @@ const Logout = ({className}) => {
         // }
 
         localStorage.removeItem("token");
+        localStorage.removeItem("user");
         navigate("/login");
     }
     return (

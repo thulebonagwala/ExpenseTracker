@@ -4,10 +4,11 @@ import api from '../utils/axiosInstance';
 import { API_PATHS } from '../utils/apiPaths';
 import AuthLayout from '../components/layouts/AuthLayout';
 
-const signUpPage = ({forms, handleChange}) => {
+const signUpPage = ({ forms, handleChange }) => {
 
   // const [form, setForm] = useState({ fullName: "", email: "", password: "" });
-  const navigate = useNavigate();
+  const [error, setError] = useState("");
+  //const navigate = useNavigate();
 
   // const handleChange = (e) => {
   //   setForm({ ...form, [e.target.name]: e.target.value });
@@ -15,21 +16,30 @@ const signUpPage = ({forms, handleChange}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
     //call API
-    console.log(forms.register);
     try {
       const res = await api.post(API_PATHS.AUTH.REGISTER, forms.register);
-      console.log("Registration sucess:", res.data);
-      navigate("/login");
+      setError("User registered Successfully");
+      //navigate("/login");
     } catch (err) {
-      console.error("Registration failed:", err.response?.data || err.message);
+
+      if (err.response && err.response.status === 400) {
+        setError("Email already exist.");
+      }
+
+      // }
+
+      // else {
+      //   setError("Something went wrong. Please try again later.");
+      // }
     };
   }
 
   return (
     <div className="min-h-screen flex">
 
-      <AuthLayout/>
+      <AuthLayout />
 
       <div className="flex w-full md:w-1/2 items-center justify-center bg-gray-50">
         <div className="w-full max-w-md p-8 bg-white rounded-2xl shadow-lg">
@@ -71,6 +81,7 @@ const signUpPage = ({forms, handleChange}) => {
             >
               Register
             </button>
+            {error && <p className="text-sm text-red-600">{error}</p>}
           </form>
 
           <p className="text-center text-sm text-gray-600 mt-6">

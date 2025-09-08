@@ -15,11 +15,11 @@ const DashboardContent = () => {
 
     const name = useUserAuth();
     const { balance, err } = useGetBalance();
-    //console.log( err);
+    //console.log( n);
     return (
         <main className="grid grid-cols-1 md:grid-cols-2 gap-6 p-8">
             <div className="flex flex-col gap-6">
-                <h2 className="text-2xl font-bold">👋 Welcome back, {name}!</h2>
+                <h2 className="text-2xl font-bold">👋 Welcome back, {name.fullName}!</h2>
 
                 {/* Balance Cards */}
                 <div className="grid md:grid-cols-2 gap-4">

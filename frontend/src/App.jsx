@@ -12,6 +12,7 @@ import ExpensesPage from './pages/ExpensesPage';
 import IncomePage from './pages/incomePage';
 import ReportsPage from './pages/ReportsPage';
 import { useFormHandler } from './hooks/useFormHandler';
+import { UserProvider } from "./context/userContext";
 
 
 function App() {
@@ -24,16 +25,18 @@ function App() {
 
   return (
     <div>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage forms={forms} handleChange={handleChange} />} />
-        <Route path="/register" element={<SignUpPage forms={forms} handleChange={handleChange} />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/expenses" element={<ExpensesPage forms={forms} handleChange={handleChange} resetForms={resetForms}/>} />
-        <Route path="/income" element={<IncomePage forms={forms} handleChange={handleChange} resetForms={resetForms}/>} />
-        <Route path="/reports" element={<ReportsPage />} />
-        <Route path="/test" element={<Test />} />
-      </Routes>
+      <UserProvider>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage forms={forms} handleChange={handleChange} />} />
+          <Route path="/register" element={<SignUpPage forms={forms} handleChange={handleChange} />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/expenses" element={<ExpensesPage forms={forms} handleChange={handleChange} resetForms={resetForms} />} />
+          <Route path="/income" element={<IncomePage forms={forms} handleChange={handleChange} resetForms={resetForms} />} />
+          <Route path="/reports" element={<ReportsPage />} />
+          <Route path="/test" element={<Test />} />
+        </Routes>
+      </UserProvider>
     </div>
   )
 }
