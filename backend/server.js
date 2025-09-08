@@ -26,6 +26,8 @@ app.use(
     )
 )
 
+// simple health check
+app.get("/health", (req, res) => res.json({ ok: true }));
 app.use("/api/v1/auth",authRoutes);
 app.use("/api/v1/expense",expenseRoutes);
 app.use("/api/v1/income",incomeRoutes);
