@@ -61,7 +61,7 @@ Spendly is a full-stack web application that helps users manage their **income a
 
 ### 1️⃣ Clone the repo  
 ```bash
-git clone https://github.com/your-username/spendly.git
+git clone https://github.com/thulebonagwala/ExpenseTracker.git
 cd spendly
 ```
 
